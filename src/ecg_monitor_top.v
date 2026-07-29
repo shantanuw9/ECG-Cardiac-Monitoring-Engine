@@ -1,3 +1,5 @@
+`default_nettype none
+
 module ecg_monitor_top (
     input wire clk,
     input wire rst_n,
@@ -13,12 +15,18 @@ module ecg_monitor_top (
     output wire low_hrv, // SDNN < threshold over 30-beat window
     output wire anomaly_flag, // any cardiomyopathy flag asserted
 
-    // Neural network extension outlet — connect nn_inference_engine here in fall
     output wire [95:0] nn_feature_vec,   // packed: 6 × 16-bit features per beat
     output wire        nn_feature_valid  // one-cycle strobe when nn_feature_vec is valid
 );
 
-
+    /*
+    nn_feature_vec[15:0] = qrs_width_cycles[15:0]
+    nn_feature_vec[31:16] = rr_interval[15:0]
+    nn_feature_vec[47:32] = qt_interval[15:0]
+    nn_feature_vec[63:48] = hrv_sdnn[15:0]
+    nn_feature_vec[79:64] = beat_amplitude[15:0]
+    nn_feature_vec[95:80] = pr_interval[15:0]
+    */
 
 
 
