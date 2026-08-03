@@ -31,9 +31,9 @@ module flag_aggregator(
         end else if(beat_detected) begin
             wide_qrs <= (qrs_width > WIDE_QRS_THRESH);
             tachy_flag <= (rr_interval < TACHY_THRESH);
-            brady_flag <= (rr_interval < BRADY_THRESH);
+            brady_flag <= (rr_interval > BRADY_THRESH);
             low_hrv <= (hrv_sdnn < LOW_HRV_THRESH);
-            anomoly_flag <= wide_qrs | low_hrv;
+            anomaly_flag <= (qrs_width > WIDE_QRS_THRESH) | (hrv_sdnn < LOW_HRV_THRESH) | (rr_interval < TACHY_THRESH);
         end
     end
 
