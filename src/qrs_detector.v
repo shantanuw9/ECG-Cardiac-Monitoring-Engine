@@ -29,8 +29,8 @@ always @(posedge clk) begin
     beat_detected <= 1'b0;
     if(!rst_n) begin
         state <= WAITING;
-        spk_i <= 0;
-        npk_i <= 0;
+        spk_i <= 16'd100;
+        npk_i <= 16'd50;
         rr_interval <= 0;
         beat_amplitude <= 0;
         qrs_start_time <= 0;
@@ -45,7 +45,7 @@ always @(posedge clk) begin
                 WAITING: begin
                     rr_interval = rr_interval + 1'b1;
 
-                    if(mwi_in > threshold_i && threshold_i > 0) begin
+                    if(mwi_in > threshold_i) begin
                         qrs_start_time <= sample_counter;
                         qrs_peak_time <= sample_counter;
                         mwi_peak <= mwi_in;
@@ -55,13 +55,13 @@ always @(posedge clk) begin
                     end
                 end
                 CANDIDATE: begin
-                    rr_interval = rr_interval + 1'b1;
+                    rr_interval <= rr_interval + 1'b1;
                     if(mwi_in > mwi_peak) begin
                         mwi_peak <= mwi_in;
                         qrs_peak_time <= sample_counter;
                     end
-                    if(mwi_peak > threshold_i) begin
-                        spk_i <= (MWI_peak >>> 3) + ((spk_i * 7) >> 3);
+                    if(mwi_in < threshold_i) begin
+                        spk_i <= (mwi_peak >>> 3) + (spk_i - (spk_i >> 3));
                         beat_detected <= 1'b1;
                         beat_amplitude <= mwi_peak;
                         refractory_counter <= 0;
@@ -70,7 +70,7 @@ always @(posedge clk) begin
                     end
                 end
                 REFRACTORY: begin
-                    refractory_counter = refractory_counter + 1'b1;
+                    refractory_counter <= refractory_counter + 1'b1;
                     if(refractory_counter >= refractory_period) begin
                         refractory_counter <= 0;
                         state <= WAITING;

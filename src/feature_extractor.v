@@ -14,10 +14,10 @@ module feature_extractor (
     output reg [15:0] last_rr
 );
 
-    localparam HR_WINDOW = 32;
+    localparam HRV_WINDOW = 32;
     reg [15:0] rr_buffer [0:HRV_WINDOW-1];
     reg [4:0] rr_buffer_index;
-    reg [4:0] beat_count;
+    reg [5:0] beat_count;
 
     integer i;
     reg [20:0] rr_sum;
@@ -31,6 +31,8 @@ module feature_extractor (
             hrv_sdnn <= 0;
             heart_rate <= 0;
             last_rr <= 0;
+            rr_buffer_index <= 0;
+            beat_count <= 0;
             for(i = 0; i < HRV_WINDOW; i = i + 1)
                 rr_buffer[i] <= 16'b0;
         end else if(beat_detected) begin
@@ -54,7 +56,7 @@ module feature_extractor (
                     diff = (rr_buffer[i] > rr_mean) ? (rr_buffer[i] - rr_mean) : (rr_mean - rr_buffer[i]);
                     mad_sum = mad_sum + diff;
                 end
-                hrv_sdnn <= mad_sum[20:5];
+                hrv_sdnn = mad_sum[20:5];
             end
 
         end
