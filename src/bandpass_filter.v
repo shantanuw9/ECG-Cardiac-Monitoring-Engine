@@ -5,7 +5,7 @@ module bandpass_filter(
     input wire rst_n,
     input wire sample_valid,
     input wire signed [15:0] x_in,
-    output reg signed [15:0] y_out
+    output wire signed [15:0] y_out
 );
 
     wire signed [15:0] lowpass_out;

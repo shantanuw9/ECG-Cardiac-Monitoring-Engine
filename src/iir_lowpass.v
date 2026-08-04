@@ -11,8 +11,10 @@ module iir_lowpass(
     //y[n] = 2y[n-1] - y[n-2] + x[n] - 2x[n-6] + x[n-12]
     reg signed [15:0] x_delay [1:12];
     reg signed [15:0] y_delay [1:2];
-    reg signed [31:0] acc;
+    wire signed [31:0] acc;
     integer i;
+
+    assign acc = (y_delay[1] <<< 1) - y_delay[2] + x_in - (x_delay[6] <<< 1) + x_delay[12];
 
     always @(posedge clk) begin
         if(!rst_n) begin
@@ -27,7 +29,6 @@ module iir_lowpass(
                     x_delay[i] <= x_delay[i-1];
                 x_delay[1] <= x_in;
                 
-                acc <= (y_delay[1] <<< 1) - y_delay[2] + x_in - (x_delay[6]  <<< 1) + x_delay[12];
                 y_delay[2] <= y_delay[1];
                 y_delay[1] <= acc[20:5];
                 y_out <= acc[20:5];
