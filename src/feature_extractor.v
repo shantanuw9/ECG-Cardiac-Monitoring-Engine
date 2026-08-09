@@ -56,7 +56,7 @@ module feature_extractor (
                     diff = (rr_buffer[i] > rr_mean) ? (rr_buffer[i] - rr_mean) : (rr_mean - rr_buffer[i]);
                     mad_sum = mad_sum + diff;
                 end
-                hrv_sdnn = mad_sum[20:5];
+                hrv_sdnn <= mad_sum[20:5];
             end
 
         end

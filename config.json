@@ -1,0 +1,20 @@
+{
+    "DESIGN_NAME": "ecg_monitor_top",
+    "VERILOG_FILES": [
+        "dir::src/ecg_monitor_top.v",
+        "dir::src/bandpass_filter.v",
+        "dir::src/iir_lowpass.v",
+        "dir::src/iir_highpass.v",
+        "dir::src/derivative_filter.v",
+        "dir::src/squaring_unit.v",
+        "dir::src/moving_window.v",
+        "dir::src/qrs_detector.v",
+        "dir::src/feature_extractor.v",
+        "dir::src/flag_aggregator.v"
+    ],
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 100,
+    "FP_SIZING": "relative",
+    "FP_CORE_UTIL": 45,
+    "PL_TARGET_DENSITY_PCT": 55
+}

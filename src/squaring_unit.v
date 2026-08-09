@@ -16,7 +16,11 @@ module squaring_unit(
         if(!rst_n) begin
             y_out <= 16'd0;
         end else if(sample_valid) begin
-            y_out <= product[30:15];
+            if (product > 32'd65535) begin
+                y_out <= 16'hFFFF;
+            end else begin
+                y_out <= product[15:0];
+            end
         end
     end
 

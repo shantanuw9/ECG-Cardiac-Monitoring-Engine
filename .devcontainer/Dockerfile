@@ -1,16 +1,15 @@
-ARG VARIANT=ubuntu-24.04
-FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
+FROM dhi.io/debian-base:trixie-debian13-dev
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PDK_ROOT=/home/vscode/ttsetup/pdk
 ENV PDK=sky130A
 
 RUN apt update
-RUN apt install -y iverilog gtkwave python3 python3-pip python3-venv python3-tk python-is-python3 libcairo2 verilator libpng-dev libqhull-dev
+RUN apt install -y git iverilog gtkwave python3 python3-pip python3-venv python3-tk python-is-python3 libcairo2 verilator libpng-dev libqhull-dev
 
 # Clone tt-support-tools
 RUN mkdir -p /ttsetup
-RUN git clone https://github.com/TinyTapeout/tt-support-tools /ttsetup/tt-support-tools
+RUN git clone https://github.com/TinyTapeOut/tt-support-tools /ttsetup/tt-support-tools
 
 COPY test/requirements.txt /ttsetup/test_requirements.txt
 COPY .devcontainer/copy_tt_support_tools.sh /ttsetup

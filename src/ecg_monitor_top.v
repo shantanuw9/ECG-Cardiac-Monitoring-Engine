@@ -92,7 +92,7 @@ module ecg_monitor_top (
     feature_extractor feature (
         .clk(clk),
         .rst_n(rst_n),
-        .sample_valid(sample_valid),
+        .beat_detected(beat_detected),
         .rr_interval(rr_interval),
         .beat_amplitude(beat_amplitude),
         .qrs_start_time(qrs_start_time),

@@ -1,3 +1,32 @@
+*.obj
+*.mtl
+*.blend
+*.blend1
+
+#OpenLane runs
+runs/
+*.gds
+*.lef
+*.def
+*.spef
+*.sdf
+*.lib
+*.mag
+
+#Python cache
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+
+#Simulations
+sim_build/
+
+#Large mem files
+test/mwi_signal.mem
+test/ecg_input_100.mem
+
 .DS_Store
 .idea
 *.vcd

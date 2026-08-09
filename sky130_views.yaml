@@ -1,0 +1,19 @@
+LayerViews:
+  substrate:
+    layer: [235, 4]
+    color: gray
+  met1:
+    layer: [68, 20]
+    color: "#B87333"
+  via1:
+    layer: [68, 44]
+    color: red
+  met2:
+    layer: [69, 20]
+    color: "#B87333"
+  via2:
+    layer: [69, 44]
+    color: red
+  met3:
+    layer: [70, 20]
+    color: "#B87333"
